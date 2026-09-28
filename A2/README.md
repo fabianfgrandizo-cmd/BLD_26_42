@@ -8,38 +8,35 @@
 ---
 
 ## A2b. Identify Claim
+Comparison- measure the carbon footprint of the added walls and columns for the diffrent versions of the transformed 308 building.
 
 ### Building
-- **ID:** #2508  
+- **ID:** #2601  
 
 ### Claim
-Data visualization - Cost estimation for structural elements, windows, and spaces.
+Data visualization - Carbon footprint for the load bearing and non-load bearig walls.
 
 ### Purpose of Checking This Claim
-The purpose of verifying this claim is to determine the costs associated with columns/beams, windows, and spaces. From a greater point of view, to verify the possibility of verifying and determining cost associated with any object digitally would be time saving.  
+The Main purpose of this tool is to measure the carbon footprint of different wall and column systems, and the second function is to quantify the walls of each new building.  
 
-- **Columns/Beams:** quantity, material type, and dimensions  
-- **Windows:** number, dimensions, and type  
-- **Spaces:** classification and evaluation  
+- **Walls:** quantity, material type, and dimensions, location.  
 
-All elements as a general rule will use the **Molio price database** for cost estimation.  
-Cost estimation is critical for financial feasibility — poor control can make a project unviable - during the tender phase, this can greatly help enhance the response time, increase productivity,efficiency and accuracy of a tender offer from GA's points of view. (given that the model and objects are correctly created) 
-
+All elements as a general rule will use the ** LCAbyg database** for Both compliant with EN 15804+A2 for carbon footprint. 
 ---
 
 ## A2c. Use Case
 
 ### How Would You Check This Claim?
-1. Identify three cost-related claims from the report.  
-2. Analysts each develop Python scripts to verify the claim them.  
-3. Manager integrates all results into a single platform.  
-4. Extract quantities using **ifcOpenShell**.  
-5. Intergrate results with **Molio** price database.
+1. Identify the carbon footprint calim in the report and compairing.  
+2. Analysts each develop Python tool to read and get all the attributes and calculate the carbon foot print for each. 
+3.  Manager integrates all results into a single platform. 
+4.  Extract quantities using **ifcOpenShell**. 
+5.  Intergrate results with ** LCAbyg database**.
 
 ### What Phase?
 **Tender phase (Build focus area)**
 
-At this stage, verified cost estimates ensure bids reflect accurate quantities and materials, reducing financial risk before construction begins.
+((At this stage, verified cost estimates ensure bids reflect accurate quantities and materials, reducing financial risk before construction begins.))
 
 ### What Information Does This Claim Rely On?
 
@@ -49,9 +46,9 @@ See - Analyst groups.
 **Analyse** (extract and compute), then **Communicate** (report to stakeholders).
 
 ### Closest BIM Use Case
-**Use Case 02 — Cost Estimation**
+((**Use Case 02 — Cost Estimation**))
 
-### BPMN Diagram
+((### BPMN Diagram
 
 ![](./flow.svg)
 [View Flow_Diagram (file)](./flow.svg)
@@ -59,15 +56,15 @@ See - Analyst groups.
 
 ## A2d. Scope the Use Case
 ![](./scope.svg)
-[View Scope (file)](./scope.svg)
+[View Scope (file)](./scope.svg)))
 
 ## A2e. Tool Idea
 
 ### Overview
-Python-based **cost-checking and validation tool** using ifcOpenShell.
+Python-based **carbon footprint measuring tool** using ifcOpenShell.
 
 ### Core Function
-Automatically extract defined quantities and materials from an IFC model, combine with Molio unit prices, and calculate total costs.
+Automatically extract new walls/columns and theirdimensions, area and materials from an IFC model, combine with LCAbyg database carbon footprint for each material, and calculate total carbon footprint for each new wall or column and overall.
 
 ### Features
 - Integrates results from multiple analysts, scripts  
@@ -75,9 +72,8 @@ Automatically extract defined quantities and materials from an IFC model, combin
 - Supports **OpenBIM** principles of interoperability, collaboration, and traceability
 
 ### Business Value
-- Automates quantity take-offs and price calculations  
+- Automates carbon footprint for any added element to any model.
 - Improves accuracy and efficiency  
-- Enables stronger budget control  
 
 ### Societal Value
 - Promotes transparency and sustainability through OpenBIM standards  
@@ -88,10 +84,7 @@ Automatically extract defined quantities and materials from an IFC model, combin
 | Category | IFC Class | Data Needed |
 |-----------|------------|--------------|
 | Columns | `IfcColumn` | Quantity, material, dimensions |
-| Beams | `IfcBeam` | Quantity, material, dimensions |
-| Windows | `IfcWindow` | Quantity, dimensions, type |
-| Spaces | `IfcSpace` | Classification, area, volume |
-| walls | `IfcWall` | Classification, area|
+| walls | `IfcWall` | Classification, area, material |
 
 ### Is It in the Model?
 YES
