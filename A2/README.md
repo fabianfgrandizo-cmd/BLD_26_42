@@ -56,7 +56,7 @@ See Analyst groups for details.
 **Analyse** (extract, compare and compute), then **Communicate** (report the ranking to stakeholders).
 
 ### Closest BIM Use Case
-**Sustainability analysis (LCA / embodied carbon)** — TODO: replace with the matching number and name from the course use case list.
+**Sustainability analysis (LCA / embodied carbon)**
 
 ### BPMN Diagram
 
