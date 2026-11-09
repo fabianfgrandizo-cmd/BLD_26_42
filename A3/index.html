@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Team 42 – Advanced BIM, DTU">
+<meta name="description" content="Interactive explainer and exam: how to read an IFC line, its attributes, Psets and Qto. Made by Team 42 for the Advanced BIM course at DTU.">
+<title>IFC Pset Explanation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1b1b2f;--paper:#fff8ec;--coral:#ff6b6b;--sun:#ffd23f;--mint:#3ddc97;--purple:#7b5cff;--blue:#3a86ff;--orange:#ff9f1c;--sky:#bfe6ff}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:Fredoka,"Trebuchet MS",sans-serif;color:var(--ink);background:var(--paper);background-image:radial-gradient(#f0dfc2 1.4px,transparent 1.4px);background-size:22px 22px;min-height:100vh}
+.wrap{max-width:1100px;margin:0 auto;padding:18px 16px 60px}
+header.top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.team{display:inline-block;background:var(--purple);color:#fff;border:3px solid var(--ink);border-radius:12px;box-shadow:3px 3px 0 var(--ink);padding:3px 10px;font-size:13px;font-weight:600;margin-top:6px}
+footer.credit{margin-top:28px;text-align:center;font-size:14px;opacity:.8}
+footer.credit b{color:var(--purple)}
+.logo{background:var(--sun);border:3px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);padding:6px 12px;font-weight:700;font-size:20px;transform:rotate(-3deg)}
+header h1{font-size:clamp(20px,3vw,30px);margin:0;flex:1;min-width:240px;line-height:1.1}
+header h1 small{display:block;font-size:14px;font-weight:500;opacity:.7;margin-top:4px}
+.nav{display:flex;gap:8px}
+.btn{font-family:inherit;font-weight:600;font-size:15px;color:var(--ink);background:#fff;border:3px solid var(--ink);border-radius:12px;box-shadow:3px 3px 0 var(--ink);padding:7px 14px;cursor:pointer;transition:transform .08s,box-shadow .08s}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn.on{background:var(--purple);color:#fff}
+.btn.y{background:var(--sun)}
+.btn.g{background:var(--mint)}
+.stage{position:relative;width:100%;aspect-ratio:16/9;border:4px solid var(--ink);border-radius:22px;box-shadow:6px 6px 0 var(--ink);overflow:hidden;background:linear-gradient(#7cc8ff 0%,#c9ecff 55%,#fff1cf 100%);touch-action:none}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
+.stage canvas:active{cursor:grabbing}
+.ttl{position:absolute;left:14px;top:12px;display:flex;gap:8px;align-items:center;pointer-events:none;flex-wrap:wrap;max-width:80%}
+.ttl span{background:var(--ink);color:#fff;border-radius:10px;padding:4px 10px;font-size:clamp(11px,1.4vw,14px);font-weight:600}
+.ttl b{background:#fff;border:3px solid var(--ink);border-radius:12px;padding:3px 12px;font-size:clamp(13px,1.9vw,20px);box-shadow:3px 3px 0 var(--ink)}
+.sub{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);width:min(88%,860px);background:#fff;border:3px solid var(--ink);border-radius:18px;box-shadow:4px 4px 0 var(--ink);padding:10px 16px;font-size:clamp(13px,1.75vw,19px);font-weight:500;line-height:1.3;min-height:2.2em;pointer-events:none}
+.sub:empty{display:none}
+.startov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(27,27,47,.35);backdrop-filter:blur(2px)}
+.startov .btn{font-size:clamp(18px,3vw,28px);padding:12px 26px;background:var(--sun);box-shadow:5px 5px 0 var(--ink)}
+.startov small{color:#fff;font-weight:600;text-shadow:0 2px 0 var(--ink)}
+.controls{display:flex;align-items:center;gap:8px;margin:16px 0 12px;flex-wrap:wrap}
+.prog{flex:1;min-width:200px;height:26px;position:relative;background:#fff;border:3px solid var(--ink);border-radius:14px;display:flex;align-items:center;padding:0 8px;gap:0}
+.prog .bar{position:absolute;left:0;top:0;bottom:0;background:var(--sun);border-radius:10px;width:0;transition:width .2s}
+.prog .dots{position:relative;display:flex;justify-content:space-between;width:100%}
+.prog .dot{width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--ink);cursor:pointer;padding:0}
+.prog .dot.p2{background:#e3dcff}
+.prog .dot.cur{background:var(--coral);transform:scale(1.35)}
+.code{background:var(--ink);color:#e9e9f5;border-radius:18px;border:3px solid var(--ink);box-shadow:5px 5px 0 #6b5bd6;padding:14px 16px;font-family:"JetBrains Mono",monospace;font-size:clamp(11px,1.45vw,15px);line-height:1.6;min-height:70px}
+.code .ln{word-break:break-all;margin-bottom:2px}
+.code .sch{font-family:Fredoka,sans-serif;font-size:12px;margin:2px 0 10px;display:flex;flex-wrap:wrap;gap:4px}
+.code .sch i{font-style:normal;background:#2c2c48;color:#aab;border-radius:6px;padding:1px 7px}
+.code .sch i.hl{background:var(--sun);color:var(--ink);font-weight:700}
+.code .lbl{font-family:Fredoka,sans-serif;font-size:12px;color:#9a9ab8;margin-bottom:6px}
+.tk{border-radius:5px;padding:0 1px;transition:background .25s,color .25s}
+.t-id{color:#c2b3ff;font-weight:700}.t-type{color:#ff9b9b;font-weight:700}.t-str{color:#93f0b9}.t-ref{color:#8cc3ff}.t-nul{color:#8f95ad}.t-enum{color:#ffc46b}.t-val{color:#ffb8e2}.t-num{color:#ffe08a}.t-list{color:#8cc3ff}
+.tk.hl{background:var(--sun);color:var(--ink);box-shadow:0 0 0 3px var(--sun);animation:pulse 1s ease-in-out infinite alternate}
+@keyframes pulse{from{box-shadow:0 0 0 2px var(--sun)}to{box-shadow:0 0 0 5px #ffe58a}}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;font-size:13px}
+.legend span{background:#fff;border:2px solid var(--ink);border-radius:9px;padding:2px 9px}
+.legend code{font-family:"JetBrains Mono",monospace;font-weight:700}
+/* exam */
+.ehead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.ehead h2{margin:0;font-size:28px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs .btn{font-size:13px;padding:5px 10px}
+.tabs .btn.done{background:#d6ffe9}
+.toggle{display:flex;gap:6px;align-items:center;font-weight:600;font-size:14px;margin-left:auto;cursor:pointer}
+.toggle input{width:18px;height:18px;accent-color:var(--purple)}
+.panel{background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:6px 6px 0 var(--ink);padding:18px}
+.panel h3{margin:0 0 4px;font-size:22px}
+.panel p.i{margin:0 0 14px;opacity:.75}
+.build{display:flex;flex-wrap:wrap;align-items:flex-start;gap:4px 2px;background:#f4f1ff;border:3px dashed #b8acf5;border-radius:16px;padding:14px 10px;font-family:"JetBrains Mono",monospace}
+.pun{font-weight:700;font-size:20px;padding-top:8px}
+.sw{display:flex;flex-direction:column;align-items:center;gap:3px}
+.sn{font-family:Fredoka,sans-serif;font-size:11px;font-weight:600;color:#6b5bd6;max-width:140px;text-align:center}
+.nohints .sn{visibility:hidden}
+.slot{min-width:54px;min-height:38px;border:3px dashed #8d80d9;border-radius:11px;background:#fff;display:flex;align-items:center;justify-content:center;padding:2px;transition:background .15s,border-color .15s}
+.slot.over{background:#fff4c2;border-color:var(--orange);border-style:solid}
+.slot.ok{border:3px solid #1fa86b;background:#dcffe9}
+.slot.bad{border:3px solid #e03a3a;background:#ffe1e1;animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.pool{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;min-height:56px;padding:10px;border-radius:14px;background:#fff8e1;border:3px solid #f1d58a}
+.pool:empty::after{content:"All pieces placed! Press Check.";opacity:.6;font-weight:600}
+.chip{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:13px;background:#fff;border:2.5px solid var(--ink);border-radius:9px;box-shadow:2px 2px 0 var(--ink);padding:6px 9px;cursor:grab;user-select:none;touch-action:none;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.chip.sel{background:var(--sun);transform:translateY(-2px)}
+.chip.dragging{opacity:.35}
+.chip.ghost{position:fixed;z-index:1000;pointer-events:none;transform:translate(-50%,-60%) rotate(-4deg);box-shadow:5px 5px 0 var(--ink);background:var(--sun)}
+.slot .chip{box-shadow:none;border-width:2px}
+.chip.c-id{color:#5b3fd9}.chip.c-type{color:#d13b3b}.chip.c-str{color:#12884f}.chip.c-ref{color:#1f62c9}.chip.c-nul{color:#666}.chip.c-enum{color:#c46a00}.chip.c-val{color:#b02a7c}.chip.c-num{color:#8a6a00}.chip.c-list{color:#1f62c9}
+.actions{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.res{font-weight:700;font-size:18px}
+.explain{margin-top:14px}
+.qcard{border:3px solid var(--ink);border-radius:16px;padding:12px 14px;margin-bottom:12px;background:#fffdf7}
+.qcard h4{margin:0 0 8px;font-size:17px}
+.qcard code{font-family:"JetBrains Mono",monospace;background:#efeaff;border-radius:5px;padding:0 4px;font-size:.92em}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.opt{font-family:inherit;font-size:14px;font-weight:500;text-align:left;background:#fff;border:2.5px solid var(--ink);border-radius:11px;padding:8px 10px;cursor:pointer}
+.opt:hover:not(:disabled){background:#fff6cf}
+.opt.right{background:#dcffe9;border-color:#1fa86b}
+.opt.wrong{background:#ffe1e1;border-color:#e03a3a}
+.opt:disabled{cursor:default}
+.fb{margin-top:8px;font-size:14px;display:none}
+.qcard.answered .fb{display:block}
+.score{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:12px 0}
+.score div{border:3px solid var(--ink);border-radius:14px;padding:10px;background:#f4f1ff}
+.score b{display:block;font-size:24px}
+.big{font-size:44px;font-weight:700}
+[hidden]{display:none!important}
+@media (max-width:640px){.sub{font-size:12px;padding:6px 10px;bottom:8px}.ttl b{font-size:12px}.legend{font-size:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="logo">IFC Pset Explanation</div>
+  <h1>What's inside an IFC line?<small>A wall explains its STEP line, its Psets and its Qto. Then: the exam.</small><span class="team">Team 42 · Advanced BIM · DTU</span></h1>
+  <div class="nav"><button class="btn on" id="navVideo">🎬 Video</button><button class="btn" id="navExam">📝 Exam</button></div>
+</header>
+
+<section id="video">
+  <div class="stage" id="stage">
+    <canvas id="c"></canvas>
+    <div class="ttl"><span id="chap">Part 1</span><b id="stitle">Intro</b></div>
+    <div class="sub" id="sub"></div>
+    <div class="startov" id="startov"><button class="btn" id="startbtn">▶ Watch the explainer</button><small>~4 min · drag the scene to rotate it</small></div>
+  </div>
+  <div class="controls">
+    <button class="btn" id="prev" title="Previous">⏮</button>
+    <button class="btn y" id="play" title="Play/Pausa">⏸</button>
+    <button class="btn" id="next" title="Next">⏭</button>
+    <div class="prog"><div class="bar" id="bar"></div><div class="dots" id="dots"></div></div>
+    <button class="btn g" id="toExam">Go to the exam →</button>
+  </div>
+  <div class="code" id="code"></div>
+  <div class="legend">
+    <span><code style="color:#5b3fd9">#45</code> instance</span>
+    <span><code style="color:#d13b3b">IFCWALL</code> class</span>
+    <span><code style="color:#12884f">'text'</code> string</span>
+    <span><code style="color:#1f62c9">#5</code> reference (arrow)</span>
+    <span><code style="color:#666">$</code> empty / optional</span>
+    <span><code style="color:#c46a00">.STANDARD.</code> enumeration</span>
+    <span><code style="color:#1f62c9">(#60,#61)</code> list</span>
+  </div>
+</section>
+
+<section id="exam" hidden>
+  <div class="ehead">
+    <h2>📝 Exam</h2>
+    <div class="tabs" id="etabs"></div>
+    <label class="toggle"><input type="checkbox" id="hints" checked> Hints: attribute names</label>
+  </div>
+  <div class="panel" id="epanel"></div>
+</section>
+<footer class="credit">Made by <b>Team 42</b> for the <b>Advanced BIM</b> course at DTU (Technical University of Denmark). Educational use. IFC attribute names follow the IFC4 schema by buildingSMART.</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s);
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const easeOutBack=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);};
+const easeOutCubic=x=>1-Math.pow(1-x,3);
+function easeOutBounce(x){const n=7.5625,d=2.75;if(x<1/d)return n*x*x;if(x<2/d)return n*(x-=1.5/d)*x+.75;if(x<2.5/d)return n*(x-=2.25/d)*x+.9375;return n*(x-=2.625/d)*x+.984375;}
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+/* ================= IFC DATA ================= */
+const LINES={
+ wall:"#45= IFCWALL('2O2Fr$t4X7Zf8NOew3FLOH',#5,'Wall-01',$,$,#30,#40,'W01',.STANDARD.);",
+ p60:"#60= IFCPROPERTYSINGLEVALUE('IsExternal',$,IFCBOOLEAN(.T.),$);",
+ p61:"#61= IFCPROPERTYSINGLEVALUE('LoadBearing',$,IFCBOOLEAN(.T.),$);",
+ p62:"#62= IFCPROPERTYSINGLEVALUE('FireRating',$,IFCLABEL('REI60'),$);",
+ p63:"#63= IFCPROPERTYSINGLEVALUE('ThermalTransmittance',$,IFCTHERMALTRANSMITTANCEMEASURE(0.18),$);",
+ p64:"#64= IFCPROPERTYSINGLEVALUE('AcousticRating',$,IFCLABEL('Rw 52 dB'),$);",
+ p70:"#70= IFCPROPERTYSET('3Hk9sT1Qz8XwPq0LmN2bVc',#5,'Pset_WallCommon',$,(#60,#61,#62,#63,#64));",
+ r80:"#80= IFCRELDEFINESBYPROPERTIES('0gF7hJ2kL9mN3pQ5rS8tUv',#5,$,$,(#45),#70);",
+ q90:"#90= IFCQUANTITYLENGTH('Length',$,$,5.,$);",
+ q91:"#91= IFCQUANTITYLENGTH('Height',$,$,3.,$);",
+ q92:"#92= IFCQUANTITYLENGTH('Width',$,$,0.25,$);",
+ q93:"#93= IFCQUANTITYAREA('NetSideArea',$,$,15.,$);",
+ q94:"#94= IFCQUANTITYVOLUME('NetVolume',$,$,3.75,$);",
+ q95:"#95= IFCELEMENTQUANTITY('1Qa2Wb3Ec4Rd5Tf6Yg7Uh8',#5,'Qto_WallBaseQuantities',$,$,(#90,#91,#92,#93,#94));",
+ c100:"#100= IFCPROPERTYSINGLEVALUE('UnitCost',$,IFCMONETARYMEASURE(1850.),$);",
+ c101:"#101= IFCPROPERTYSINGLEVALUE('GWP_A1A3',$,IFCREAL(1125.),$);",
+ c102:"#102= IFCPROPERTYSET('2Zx9Cv8Bn7Mm6Ll5Kk4Jj3',#5,'DTU_CostCarbon',$,(#100,#101));"
+};
+const SCHEMA={
+ IFCWALL:["GlobalId","OwnerHistory","Name","Description","ObjectType","ObjectPlacement","Representation","Tag","PredefinedType"],
+ IFCPROPERTYSINGLEVALUE:["Name","Description","NominalValue","Unit"],
+ IFCPROPERTYSET:["GlobalId","OwnerHistory","Name","Description","HasProperties"],
+ IFCRELDEFINESBYPROPERTIES:["GlobalId","OwnerHistory","Name","Description","RelatedObjects","RelatingPropertyDefinition"],
+ IFCELEMENTQUANTITY:["GlobalId","OwnerHistory","Name","Description","MethodOfMeasurement","Quantities"],
+ IFCQUANTITYLENGTH:["Name","Description","Unit","LengthValue","Formula"],
+ IFCQUANTITYAREA:["Name","Description","Unit","AreaValue","Formula"],
+ IFCQUANTITYVOLUME:["Name","Description","Unit","VolumeValue","Formula"]
+};
+function parseLine(s){
+  const m=s.match(/^(#\d+)=\s*([A-Z0-9_]+)\((.*)\);$/);
+  const args=[];let depth=0,inq=false,cur="";
+  for(const ch of m[3]){
+    if(ch==="'"){inq=!inq;cur+=ch;continue;}
+    if(!inq){if(ch==="(")depth++;if(ch===")")depth--;if(ch===","&&depth===0){args.push(cur);cur="";continue;}}
+    cur+=ch;
+  }
+  args.push(cur);
+  return {id:m[1],type:m[2],args};
+}
+function tokClass(a){
+  if(a[0]==="'")return "str";if(a[0]==="#")return "ref";if(a==="$")return "nul";
+  if(a[0]===".")return "enum";if(a[0]==="(")return "list";if(/^[0-9-]/.test(a))return "num";
+  if(/^IFC[A-Z]+$/.test(a))return "type";return "val";
+}
+function renderLine(key,hl){
+  hl=hl||[];const all=hl.includes("all");const P=parseLine(LINES[key]);const sch=SCHEMA[P.type]||[];
+  const H=k=>all||hl.includes(k)?" hl":"";
+  let h=`<div class="ln"><span class="tk t-id${H("id")}">${P.id}</span>= <span class="tk t-type${H("type")}">${P.type}</span>(`;
+  h+=P.args.map((a,i)=>`<span class="tk t-${tokClass(a)}${H(i)}" title="${sch[i]||""}">${esc(a)}</span>`).join(",");
+  h+=");</div><div class='sch'>"+sch.map((n,i)=>`<i class="${(all||hl.includes(i))?"hl":""}">${i+1}. ${n}</i>`).join("")+"</div>";
+  return h;
+}
+
+/* ================= THREE SETUP ================= */
+const canvas=$("#c"),stage=$("#stage");
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(40,16/9,0.1,200);
+scene.add(new THREE.HemisphereLight(0xffffff,0x9fc6ff,0.65));
+const sunL=new THREE.DirectionalLight(0xffffff,0.85);sunL.position.set(6,11,8);sunL.castShadow=true;
+sunL.shadow.mapSize.set(1024,1024);Object.assign(sunL.shadow.camera,{left:-11,right:11,top:11,bottom:-11,near:1,far:40});
+scene.add(sunL);
+const gradTex=new THREE.DataTexture(new Uint8Array([90,90,90,255,170,170,170,255,255,255,255,255]),3,1,THREE.RGBAFormat);
+gradTex.minFilter=gradTex.magFilter=THREE.NearestFilter;gradTex.needsUpdate=true;
+const toon=c=>new THREE.MeshToonMaterial({color:c,gradientMap:gradTex});
+const OUT=new THREE.MeshBasicMaterial({color:0x1b1b2f,side:THREE.BackSide});OUT.userData.shared=true;
+const V=(x,y,z)=>new THREE.Vector3(x,y,z);
+function fin(m,o){m.castShadow=true;m.receiveShadow=true;if(o)m.add(o);return m;}
+function box(w,h,d,c,ol=true){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),toon(c));let o=null;if(ol){o=new THREE.Mesh(m.geometry,OUT);o.scale.set(1+.07/w,1+.07/h,1+.07/d);}return fin(m,o);}
+function sph(r,c,ol=true){const m=new THREE.Mesh(new THREE.SphereGeometry(r,24,16),toon(c));let o=null;if(ol){o=new THREE.Mesh(m.geometry,OUT);o.scale.setScalar(1+.06/r);}return fin(m,o);}
+function cyl(rt,rb,h,c,ol=true,seg=28){const m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg),toon(c));let o=null;if(ol){const r=Math.max(rt,rb);o=new THREE.Mesh(m.geometry,OUT);o.scale.set(1+.06/r,1+.06/h,1+.06/r);}return fin(m,o);}
+function cone(r,h,c,ol=true){return cyl(0.001,r,h,c,ol,20);}
+function rr(x,X,Y,w,h,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+w,Y,X+w,Y+h,r);x.arcTo(X+w,Y+h,X,Y+h,r);x.arcTo(X,Y+h,X,Y,r);x.arcTo(X,Y,X+w,Y,r);x.closePath();}
+const FONT='Fredoka, "Trebuchet MS", sans-serif';
+function label(text,o={}){
+  const font=o.font||64,pad=o.pad||26,bg=o.bg||"#ffffff",fg=o.fg||"#1b1b2f";
+  const c=document.createElement("canvas"),x=c.getContext("2d");const f=`700 ${font}px ${FONT}`;
+  x.font=f;const tw=x.measureText(text).width;const W=Math.ceil(tw+pad*2+18),H=Math.ceil(font*1.25+pad*1.1+18);
+  c.width=W;c.height=H;x.font=f;
+  rr(x,12,12,W-16,H-16,(H-16)*.35);x.fillStyle="#1b1b2f";x.fill();
+  rr(x,4,4,W-16,H-16,(H-16)*.35);x.fillStyle=bg;x.fill();x.lineWidth=7;x.strokeStyle="#1b1b2f";x.stroke();
+  x.fillStyle=fg;x.textAlign="center";x.textBaseline="middle";x.fillText(text,4+(W-16)/2,4+(H-16)/2+font*.05);
+  const t=new THREE.CanvasTexture(c);t.minFilter=THREE.LinearFilter;
+  const s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,depthTest:false,transparent:true}));
+  const h=o.h||0.6;s.scale.set(h*W/H,h,1);s.renderOrder=20;return s;
+}
+function card(text,w,h,bg,fg="#1b1b2f"){
+  const W=512,Hh=Math.round(512*h/w);const c=document.createElement("canvas");c.width=W;c.height=Hh;const x=c.getContext("2d");
+  rr(x,6,6,W-12,Hh-12,30);x.fillStyle=bg;x.fill();x.lineWidth=10;x.strokeStyle="#1b1b2f";x.stroke();
+  let fs=Math.round(Hh*.42);x.font=`700 ${fs}px ${FONT}`;while(x.measureText(text).width>W-50&&fs>14){fs-=2;x.font=`700 ${fs}px ${FONT}`;}
+  x.fillStyle=fg;x.textAlign="center";x.textBaseline="middle";x.fillText(text,W/2,Hh/2+fs*.05);
+  const t=new THREE.CanvasTexture(c);t.minFilter=THREE.LinearFilter;
+  const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:t,transparent:true}));
+  const g=new THREE.Group();g.add(m);return g;
+}
+
+/* world decor */
+const ground=cyl(10,10,0.3,0x8fd16a,true,64);ground.position.y=-0.15;ground.castShadow=false;scene.add(ground);
+const ring=new THREE.Mesh(new THREE.RingGeometry(9.2,9.7,64),new THREE.MeshBasicMaterial({color:0x7cbf57}));ring.rotation.x=-Math.PI/2;ring.position.y=0.01;scene.add(ring);
+function tree(x,z,s){const g=new THREE.Group();const t=cyl(.15,.2,.9,0x8b5a2b);t.position.y=.45;const c1=cone(.8,1.5,0x3fae5a);c1.position.y=1.5;const c2=cone(.6,1.1,0x52c46c);c2.position.y=2.2;g.add(t,c1,c2);g.position.set(x,0,z);g.scale.setScalar(s);scene.add(g);}
+tree(-7,-5,1.1);tree(-5.5,-7,.8);tree(6.8,-5.5,1);tree(7.8,-2.5,.7);tree(-8.3,-1.5,.75);
+const clouds=[];
+function cloud(x,y,z){const g=new THREE.Group();[[0,0,0,.9],[.9,-.1,0,.7],[-.9,-.15,0,.65],[.4,.4,0,.6]].forEach(a=>{const s=sph(a[3],0xffffff);s.position.set(a[0],a[1],a[2]);s.castShadow=false;g.add(s);});g.position.set(x,y,z);scene.add(g);clouds.push(g);}
+cloud(-7,8,-8);cloud(5,9.5,-10);cloud(10,7,-6);
+
+/* The wall */
+const wally=new THREE.Group();scene.add(wally);
+function brickTex(){const c=document.createElement("canvas");c.width=1000;c.height=600;const x=c.getContext("2d");x.fillStyle="#f3e2c7";x.fillRect(0,0,1000,600);
+  const bh=60,bw=166,cols=["#f39c5f","#ee915a","#f6a96b","#e9884f","#f4b07a"];
+  for(let r=0;r<10;r++){const off=r%2?bw/2:0;for(let i=-1;i<8;i++){const X=i*bw+off,Y=r*bh;x.fillStyle=cols[(r*7+i*3+20)%5];rr(x,X+5,Y+5,bw-10,bh-10,8);x.fill();x.fillStyle="rgba(255,255,255,.18)";x.fillRect(X+12,Y+10,bw-40,6);}}
+  x.lineWidth=14;x.strokeStyle="#1b1b2f";x.strokeRect(0,0,1000,600);
+  const t=new THREE.CanvasTexture(c);t.anisotropy=4;return t;}
+const wallMat=new THREE.MeshToonMaterial({color:0xffffff,gradientMap:gradTex,map:brickTex()});
+const body=new THREE.Mesh(new THREE.BoxGeometry(5,3,0.25),wallMat);body.castShadow=true;body.receiveShadow=true;
+{const o=new THREE.Mesh(body.geometry,OUT);o.scale.set(1+.07/5,1+.07/3,1+.07/.25);body.add(o);}
+body.position.y=1.5;wally.add(body);
+const wprops=new THREE.Group();wally.add(wprops);
+const props=new THREE.Group();scene.add(props);
+function resetWall(){wally.position.set(0,0,0);wally.rotation.set(0,0,0);wally.scale.set(1,1,1);body.material.emissive.setHex(0);}
+function clearGroup(g){while(g.children.length){const c=g.children.pop();c.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>{if(m.userData&&m.userData.shared)return;if(m.map)m.map.dispose();m.dispose();});}});}}
+
+/* scene helpers */
+function pop(o,d=0){o.userData.pop={d,s:o.scale.clone()};o.scale.setScalar(1e-4);return o;}
+function P(o,pos,d){if(pos)o.position.copy(pos);if(d!==undefined&&d!==null)pop(o,d);props.add(o);return o;}
+function W(o,pos,d){if(pos)o.position.copy(pos);if(d!==undefined&&d!==null)pop(o,d);wprops.add(o);return o;}
+const UP=V(0,1,0);
+function link(from,to,o={}){
+  const mid=from.clone().add(to).multiplyScalar(.5);mid.y+=o.lift!==undefined?o.lift:1.4;
+  const curve=new THREE.QuadraticBezierCurve3(from,mid,to);const geo=new THREE.TubeGeometry(curve,48,o.r||.05,8,false);
+  const mat=toon(o.color||0x3a86ff);const tube=new THREE.Mesh(geo,mat);
+  const head=cone(.16,.38,o.color||0x3a86ff);head.position.copy(to);head.quaternion.setFromUnitVectors(UP,curve.getTangent(1).normalize());head.visible=false;
+  const g=new THREE.Group();g.add(tube,head);g.userData.grow={d:o.d||0,geo,head};geo.setDrawRange(0,0);props.add(g);return g;
+}
+function dim(a,b,text,d,off){
+  const g=new THREE.Group();const len=a.distanceTo(b);const dir=b.clone().sub(a).normalize();
+  const l=cyl(.03,.03,len,0x1b1b2f,false,8);l.position.copy(a).add(b).multiplyScalar(.5);l.quaternion.setFromUnitVectors(UP,dir);g.add(l);
+  [a,b].forEach(p=>{const s=sph(.08,0xff6b6b,false);s.position.copy(p);g.add(s);});
+  const lb=label(text,{h:.42,bg:"#ffd23f"});lb.position.copy(a).add(b).multiplyScalar(.5).add(off||V(0,.4,0));g.add(lb);
+  props.add(g);pop(g,d);return g;
+}
+function axes(){const g=new THREE.Group();[[0xff4d4d,V(1,0,0)],[0x3ddc97,V(0,1,0)],[0x3a86ff,V(0,0,1)]].forEach(([c,d])=>{const sh=cyl(.06,.06,1.4,c,true,10);sh.position.copy(d.clone().multiplyScalar(.7));sh.quaternion.setFromUnitVectors(UP,d);const hd=cone(.17,.4,c);hd.position.copy(d.clone().multiplyScalar(1.55));hd.quaternion.setFromUnitVectors(UP,d);g.add(sh,hd);});const o=sph(.14,0xffffff);g.add(o);return g;}
+
+/* ================= SCENES ================= */
+const SC=[
+{ch:1,title:"Meet the wall",code:[["wall",[]]],cam:{r:12.5,yaw:.35,pitch:.25},
+ cap:"Meet our wall. In an IFC file it isn't a drawing: it's one line of text. Let's take that line apart, piece by piece.",
+ enter(){P(label("One wall = one IFC line",{h:.6,bg:"#ffd23f"}),V(0,4.4,0),1.4);},
+ tick(t){if(t<1.4){wally.position.y=6*(1-easeOutBounce(clamp(t/1.4)));}const k=t>1.4?Math.sin((t-1.4)*5)*Math.exp(-(t-1.4)*2):0;wally.scale.set(1+k*.05,1-k*.08,1);}},
+{ch:1,title:"#45 · instance number",code:[["wall",["id"]]],cam:{r:11,yaw:.25,pitch:.3},
+ cap:"#45 is the instance number inside THIS file. Other lines use it to point at the wall. Careful: export again and the number can change.",
+ enter(S){S.a=P(label("#45",{h:1.1,font:90,bg:"#7b5cff",fg:"#fff"}),V(0,4.3,.3),.3);P(label("line #45 of this file",{h:.42}),V(0,3.45,.6),1);},
+ tick(t,S){S.a.position.y=4.3+Math.sin(t*2.4)*.12;}},
+{ch:1,title:"IFCWALL · the class",code:[["wall",["type"]]],cam:{r:13,yaw:.3,pitch:.28},
+ cap:"IFCWALL is the entity class: it says WHAT the object is. A door would be IFCDOOR, a window IFCWINDOW, a beam IFCBEAM. Everything inside the brackets is an attribute, always in the same order.",
+ enter(S){P(label("IFCWALL",{h:.9,font:84,bg:"#ff6b6b",fg:"#fff"}),V(0,4.3,0),.2);
+  const door=box(1,2.1,.12,0xa0522d);const dk=sph(.07,0xffd23f,false);dk.position.set(.35,0,.08);door.add(dk);P(door,V(-4.7,1.05,1.8),1.2);P(label("IFCDOOR",{h:.45}),V(-4.7,2.6,1.8),1.3);
+  const win=new THREE.Group();const fr=box(1.3,1.3,.12,0xffffff);const gl=box(1.1,1.1,.06,0x9ad7ff,false);win.add(fr,gl);P(win,V(4.7,1.6,1.8),1.8);P(label("IFCWINDOW",{h:.45}),V(4.7,2.7,1.8),1.9);
+  P(box(2.6,.35,.35,0x9aa4b2),V(0,.18,3.4),2.4);P(label("IFCBEAM",{h:.45}),V(0,.9,3.4),2.5);},
+ tick(t){body.material.emissive.setRGB(.25*(.5+.5*Math.sin(t*4)),.1*(.5+.5*Math.sin(t*4)),0);}},
+{ch:1,title:"1 · GlobalId",code:[["wall",[0]]],cam:{r:13,yaw:.5,pitch:.42},
+ cap:"Attribute 1: GlobalId. 22 characters that identify the wall worldwide. #45 can change; the GlobalId shouldn't. That's why it's the key for matching elements between two model versions.",
+ enter(S){const g=new THREE.Group();const cols=[0x7b5cff,0x3ddc97,0xffd23f,0xff6b6b];for(let i=0;i<22;i++){const a=i/22*Math.PI*2;const b=box(.26,.26,.26,cols[i%4]);b.position.set(Math.cos(a)*3.6,0,Math.sin(a)*3.6);pop(b,.3+i*.06);g.add(b);}g.position.y=1.6;props.add(g);S.g=g;
+  P(label("GlobalId · 22 characters",{h:.6,bg:"#3ddc97"}),V(0,4.4,0),.2);P(label("#45 changes · GlobalId stays",{h:.42,bg:"#fff"}),V(0,3.6,.6),2.4);},
+ tick(t,S){S.g.rotation.y=t*.7;S.g.children.forEach((b,i)=>{b.position.y=Math.sin(t*3+i)*.15;b.rotation.x=t*2+i;});}},
+{ch:1,title:"2 · OwnerHistory",code:[["wall",[1]]],cam:{r:12.5,yaw:-.35,pitch:.28},
+ cap:"Attribute 2: #5 points to IfcOwnerHistory: who created the element, with which software, and when. Every # is an arrow to another line in the file.",
+ enter(S){const ck=new THREE.Group();const face=cyl(.8,.8,.2,0xffffff);face.rotation.x=Math.PI/2;ck.add(face);
+  const hh=box(.08,.45,.05,0x1b1b2f,false);hh.geometry.translate(0,.22,0);hh.position.z=.13;const mh=box(.06,.65,.05,0xff6b6b,false);mh.geometry.translate(0,.32,0);mh.position.z=.15;ck.add(hh,mh);S.hh=hh;S.mh=mh;
+  P(ck,V(-4.6,2.6,1.2),.4);const per=new THREE.Group();const bd=cyl(.28,.34,.9,0x3a86ff);bd.position.y=.45;const hd=sph(.26,0xffd9b3);hd.position.y=1.15;per.add(bd,hd);P(per,V(-5.6,0,2.4),.7);
+  const lap=box(.7,.05,.5,0x9aa4b2);P(lap,V(-4.9,.9,2.6),.9);
+  P(label("#5 · IfcOwnerHistory",{h:.5,bg:"#8cc3ff"}),V(-4.6,3.85,1.2),.5);link(V(-2.4,2.8,.1),V(-4.0,2.6,1.1),{d:1.2,lift:1});},
+ tick(t,S){S.mh.rotation.z=-t*3;S.hh.rotation.z=-t*.4;}},
+{ch:1,title:"3 · Name",code:[["wall",[2]]],cam:{r:11,yaw:.15,pitch:.3},
+ cap:"Attribute 3: 'Wall-01' is the Name, the human-readable label. Text values always sit inside single quotes.",
+ enter(S){S.s=P(label("Name: 'Wall-01'",{h:.8,bg:"#93f0b9"}),V(0,4.2,.3),.3);},
+ tick(t,S){S.s.material.rotation=Math.sin(t*3)*.18*Math.exp(-t*.35);}},
+{ch:1,title:"4-5 · $ = empty",code:[["wall",[3,4]]],cam:{r:13,yaw:.2,pitch:.3},
+ cap:"Attributes 4 and 5: Description and ObjectType. Both are $, which means optional attribute, no value. Not zero, not empty text: simply nothing.",
+ enter(S){S.b=[];[-3.8,3.8].forEach((x,i)=>{const g=new THREE.Group();const e=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1.3,1.3,1.3)),new THREE.LineDashedMaterial({color:0x1b1b2f,dashSize:.12,gapSize:.08}));e.computeLineDistances();const f=new THREE.Mesh(new THREE.BoxGeometry(1.28,1.28,1.28),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.35}));g.add(e,f);P(g,V(x,3.4,1),.4+i*.6);S.b.push(g);
+  P(label("$",{h:.8,font:90,bg:"#8f95ad",fg:"#fff"}),V(x,3.4,1),.6+i*.6);P(label(i?"ObjectType":"Description",{h:.42}),V(x,4.5,1),.7+i*.6);});},
+ tick(t,S){S.b.forEach((g,i)=>{g.rotation.y=Math.sin(t*1.5+i)*.5;g.rotation.x=Math.sin(t*1.1+i)*.2;});}},
+{ch:1,title:"6 · ObjectPlacement",code:[["wall",[5]]],cam:{r:13,yaw:.6,pitch:.4},
+ cap:"Attribute 6: #30 is the ObjectPlacement. It says WHERE the wall is and which way it faces, using an origin point and local axes.",
+ enter(S){W(axes(),V(-2.5,0,.4),.2);W(label("#30 · ObjectPlacement",{h:.5,bg:"#8cc3ff"}),V(-2.5,2.4,1),.4);
+  const dot=sph(.15,0xff6b6b);P(dot,V(-7.5,.1,0),.1);},
+ tick(t){const k=easeOutBack(clamp((t-.6)/1.5));wally.position.x=-5*(1-k);wally.rotation.y=.9*(1-k);}},
+{ch:1,title:"7 · Representation",code:[["wall",[6]]],cam:{r:12.5,yaw:.55,pitch:.38},
+ cap:"Attribute 7: #40 is the Representation, the 3D shape. Here it's a 5 by 0.25 metre profile extruded 3 metres up.",
+ enter(S){P(box(5,.04,.25,0x3ddc97),V(0,.02,0),0);const e=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(5.02,3.02,.27)),new THREE.LineBasicMaterial({color:0x7b5cff}));P(e,V(0,1.5,0),.1);
+  P(label("#40 · Representation",{h:.55,bg:"#8cc3ff"}),V(0,4.4,0),.3);P(label("profile 5 × 0.25 m  ↑ 3 m",{h:.42}),V(3.6,1.6,1),1.2);},
+ tick(t){wally.scale.y=Math.max(.02,easeOutBack(clamp((t-.7)/1.8)));}},
+{ch:1,title:"8 · Tag",code:[["wall",[7]]],cam:{r:11,yaw:.75,pitch:.3},
+ cap:"Attribute 8: 'W01' is the Tag. Usually it's the ID from the authoring tool, for example the Revit Element ID.",
+ enter(S){const tg=card("W01",.9,.5,"#ff9f1c");W(tg,V(2.1,.7,.14),.3);S.t=tg;W(label("Tag: 'W01'",{h:.5,bg:"#ff9f1c"}),V(2.6,2.9,.6),.5);W(label("authoring-tool ID",{h:.38}),V(2.6,2.3,.8),1.2);},
+ tick(t,S){S.t.rotation.z=Math.sin(t*4)*.12*Math.exp(-t*.4);}},
+{ch:1,title:"9 · PredefinedType",code:[["wall",[8]]],cam:{r:13,yaw:.2,pitch:.42},
+ cap:"Attribute 9: .STANDARD. is the PredefinedType. The dots mean it's an enumeration: only values from a fixed list are allowed. Exam tip: in IFC2x3, IfcWall doesn't have this attribute.",
+ enter(S){S.xs=[-3.3,-1.1,1.1,3.3];const vals=[".STANDARD.",".SHEAR.",".PARAPET.",".PARTITIONING."],cs=[0xffb36b,0x9aa4b2,0x7b5cff,0x3ddc97];S.m=[];
+  S.xs.forEach((x,i)=>{const m=box(1.3,.8,.12,cs[i]);P(m,V(x,.4,3),.3+i*.2);S.m.push(m);P(label(vals[i],{h:.36,bg:i?"#fff":"#ffd23f"}),V(x,1.3,3),.4+i*.2);});
+  const sel=new THREE.Mesh(new THREE.TorusGeometry(.95,.08,8,36),toon(0xff6b6b));sel.rotation.x=Math.PI/2;S.sel=P(sel,V(S.xs[0],.06,3),1);},
+ tick(t,S){const idx=t<3.6?Math.floor(t*3)%4:0;S.sel.position.x+=(S.xs[idx]-S.sel.position.x)*.25;if(t>3.6)S.m[0].position.y=.4+Math.abs(Math.sin((t-3.6)*5))*.35*Math.exp(-(t-3.6)*.8);}},
+{ch:1,title:"; · end of the line",code:[["wall",["all"]]],cam:{r:12,yaw:.3,pitch:.3},
+ cap:"The semicolon closes the line. But notice: nothing here says whether the wall is external, load-bearing, or how big it is. That lives in the Psets.",
+ enter(S){S.q=[];[[-3.5,3.6,"external?"],[0,4.6,"load-bearing?"],[3.5,3.6,"how big?"]].forEach((a,i)=>{S.q.push(P(label(a[2],{h:.5,bg:"#fff"}),V(a[0],a[1],.8),1+i*.5));});},
+ tick(t,S){S.q.forEach((q,i)=>q.position.y+=Math.sin(t*3+i)*.004);}},
+{ch:2,title:"What is a Pset?",code:[["wall",[]],["r80",[4,5]]],cam:{r:12,yaw:.15,pitch:.25},
+ cap:"A Pset is a sticker sheet: a named group of properties. It isn't attached directly. IFCRELDEFINESBYPROPERTIES is the glue: it links #45, the wall, to #70, the Pset.",
+ enter(S){const defs=[["Pset_WallCommon","#ffd23f",-1.7],["Qto_WallBase…","#93f0b9",0],["DTU_CostCarbon","#c2b3ff",1.7]];S.c=[];
+  defs.forEach((d,i)=>{const c=card(d[0],1.55,.5,d[1]);c.position.set(d[2]+(i-1)*2,7,3);props.add(c);S.c.push({c,to:V(d[2],.55,.135),from:V(d[2]+(i-1)*2,7,3),d:.6+i*.6});});
+  P(label("#80 IfcRelDefinesByProperties = the glue",{h:.45,bg:"#ff9f1c"}),V(0,4.3,.4),2.6);link(V(-3.6,4.1,.6),V(-1.7,.85,.2),{d:3,lift:.6,color:0xff9f1c});},
+ tick(t,S){S.c.forEach(o=>{const k=easeOutBack(clamp((t-o.d)/.9));o.c.position.lerpVectors(o.from,o.to,k);o.c.rotation.z=(1-clamp(k))*2.5;});}},
+{ch:2,title:"Pset_WallCommon · IsExternal",code:[["p60",[0,2]]],cam:{r:13,yaw:1.05,pitch:.32},
+ cap:"Pset_WallCommon, property IsExternal = true. It's an IFCBOOLEAN that says whether the wall faces the outside. Handy for filtering façades in energy calculations.",
+ enter(S){const sun=new THREE.Group();sun.add(sph(.7,0xffd23f));for(let i=0;i<8;i++){const r=cone(.14,.5,0xff9f1c);const a=i/8*Math.PI*2;r.position.set(Math.cos(a)*1.05,Math.sin(a)*1.05,0);r.rotation.z=a-Math.PI/2;sun.add(r);}S.sun=P(sun,V(2.5,4.6,4.5),.3);
+  P(label("OUTSIDE",{h:.5,bg:"#8cc3ff"}),V(0,.5,3),.8);P(label("INSIDE",{h:.5,bg:"#ffd9b3"}),V(0,.5,-3),1.1);P(label("IsExternal = .T.",{h:.6,bg:"#ffd23f"}),V(0,4.3,0),.5);},
+ tick(t,S){S.sun.rotation.z=t*.6;}},
+{ch:2,title:"Pset_WallCommon · LoadBearing",code:[["p61",[0,2]]],cam:{r:15.5,yaw:.45,pitch:.3,ty:2.2},
+ cap:"LoadBearing = true: this wall carries the slab. Use it to separate structural walls from partitions.",
+ enter(S){S.sl=P(box(6.2,.3,2.4,0xb8c0cc),V(0,9,0));S.ar=[];[-2,0,2].forEach((x,i)=>{const a=cone(.22,.5,0xff6b6b);a.rotation.x=Math.PI;S.ar.push(P(a,V(x,4.4,0),1.4+i*.15));});P(label("LoadBearing = .T.",{h:.6,bg:"#ffd23f"}),V(0,5.2,0),1.8);},
+ tick(t,S){const k=clamp(t/1);S.sl.position.y=9-(9-3.15)*k*k;if(t>1){const u=t-1;wally.scale.y=1-.1*Math.exp(-u*5)*Math.cos(u*16);}S.ar.forEach((a,i)=>a.position.y=4.4+Math.sin(t*5+i)*.12);}},
+{ch:2,title:"Pset_WallCommon · FireRating",code:[["p62",[0,2]]],cam:{r:12.5,yaw:.35,pitch:.25},
+ cap:"FireRating = 'REI60'. It's an IFCLABEL, plain text. The wall resists fire for 60 minutes: R load-bearing capacity, E integrity, I insulation.",
+ enter(S){S.f=[];for(let i=0;i<7;i++){const c=cone(.32,1.1,i%2?0xffd23f:0xff7b00);S.f.push(P(c,V(-2.2+i*.73,.55,.9),.2+i*.08));}
+  P(label("FireRating = 'REI60'",{h:.6,bg:"#ffd23f"}),V(0,4.3,0),.6);P(label("⏱ 60 min",{h:.45,bg:"#fff"}),V(3.3,3.2,.6),1.5);},
+ tick(t,S){S.f.forEach((c,i)=>{if(!c.userData.pop||t>c.userData.pop.d+.5){c.scale.y=1+.35*Math.sin(t*12+i*1.7);c.scale.x=c.scale.z=1+.1*Math.sin(t*9+i);}});body.material.emissive.setRGB(.18+.08*Math.sin(t*8),.04,0);}},
+{ch:2,title:"Pset_WallCommon · ThermalTransmittance",code:[["p63",[0,2]]],cam:{r:13,yaw:1.15,pitch:.28},
+ cap:"ThermalTransmittance = 0.18. That's the U-value in W/m²K: the lower it is, the less heat escapes through the wall.",
+ enter(S){S.h=[];for(let i=0;i<10;i++){const c=cone(.15,.45,0xff4d4d,true);c.rotation.x=Math.PI/2;c.userData.ph=i/10;c.userData.x=-2+((i*7)%10)/10*4;c.userData.y=.5+((i*3)%10)/10*2.2;props.add(c);S.h.push(c);}
+  P(label("U = 0.18 W/m²K",{h:.6,bg:"#ffd23f"}),V(0,4.3,0),.4);P(label("Inside 21 °C",{h:.45,bg:"#ffd9b3"}),V(0,.5,-3.2),.8);P(label("Outside 0 °C",{h:.45,bg:"#8cc3ff"}),V(0,.5,3.2),1);},
+ tick(t,S){S.h.forEach(c=>{const u=(t*.3+c.userData.ph)%1;const z=-3.6+u*7.2;c.position.set(c.userData.x,c.userData.y,z);const s=z<0?1:.4;c.scale.setScalar(s);c.material.color.setHex(z<0?0xff4d4d:0xffa07a);});}},
+{ch:2,title:"Pset_WallCommon · AcousticRating",code:[["p64",[0,2]]],cam:{r:13,yaw:.75,pitch:.28},
+ cap:"AcousticRating = 'Rw 52 dB': how much sound the wall blocks. It's free text, so every model may write it differently. Careful when filtering.",
+ enter(S){const sp=box(1,1.6,.7,0x7b5cff);const wf=cyl(.32,.32,.1,0x1b1b2f,false);wf.rotation.x=Math.PI/2;wf.position.set(0,.2,-.36);sp.add(wf);P(sp,V(0,.8,4.4),.2);
+  S.r=[];for(let i=0;i<5;i++){const r=new THREE.Mesh(new THREE.TorusGeometry(.5,.06,8,32),new THREE.MeshBasicMaterial({color:0x3a86ff,transparent:true}));r.userData.ph=i/5;props.add(r);S.r.push(r);}
+  S.b=[];for(let i=0;i<3;i++){const r=new THREE.Mesh(new THREE.TorusGeometry(.5,.04,8,32),new THREE.MeshBasicMaterial({color:0x3a86ff,transparent:true}));r.userData.ph=i/3;props.add(r);S.b.push(r);}
+  P(label("AcousticRating = 'Rw 52 dB'",{h:.6,bg:"#ffd23f"}),V(0,4.3,0),.5);},
+ tick(t,S){S.r.forEach(r=>{const u=(t*.5+r.userData.ph)%1;r.position.set(0,1.2,4-u*3.85);r.scale.setScalar(1+u*2.4);r.material.opacity=1-u*.4;});S.b.forEach(r=>{const u=(t*.5+r.userData.ph)%1;r.position.set(0,1.2,-.25-u*2.2);r.scale.setScalar(.5+u);r.material.opacity=.22*(1-u);});}},
+{ch:2,title:"#70 · the Pset groups properties",code:[["p70",[2,4]],["r80",[4,5]]],cam:{r:14.5,yaw:0,pitch:.3},
+ cap:"The five properties, #60 to #64, are grouped in #70: an IFCPROPERTYSET named Pset_WallCommon. The Pset_ prefix is reserved for buildingSMART's official sets.",
+ enter(S){const ps=V(0,5,2.2);P(label("#70 · Pset_WallCommon",{h:.7,bg:"#7b5cff",fg:"#fff"}),ps,.2);
+  const names=["#60 IsExternal","#61 LoadBearing","#62 FireRating","#63 ThermalTransm.","#64 AcousticRating"];
+  names.forEach((n,i)=>{const x=-4.6+i*2.3,y=i%2?1.9:1.1;const p=V(x,y,3.6);P(label(n,{h:.42,bg:"#ffd23f"}),p,.5+i*.25);link(p.clone().add(V(0,.25,0)),ps.clone().add(V(0,-.35,0)),{d:1.2+i*.25,lift:.5,r:.035,color:0x7b5cff});});
+  link(V(0,4.6,2.1),V(0,3.05,.1),{d:3,lift:.3,color:0xff9f1c});P(label("#80",{h:.42,bg:"#ff9f1c"}),V(.7,3.9,1.2),3.2);},
+ tick(t){}},
+{ch:2,title:"Qto_WallBaseQuantities · measurements",code:[["q95",[2,5]],["q93",[0,3]],["q94",[0,3]]],cam:{r:12.5,yaw:.55,pitch:.35},
+ cap:"Measurements live separately, in Qto_WallBaseQuantities, an IFCELEMENTQUANTITY. Length 5, Height 3, Width 0.25, NetSideArea 15 m² and NetVolume 3.75 m³. Net means openings are subtracted.",
+ enter(S){dim(V(-2.5,.05,.7),V(2.5,.05,.7),"Length 5 m",.3);dim(V(2.9,0,.2),V(2.9,3,.2),"Height 3 m",1,V(.9,0,0));dim(V(2.5,3.3,-.125),V(2.5,3.3,.125),"Width 0.25 m",1.7,V(.4,.4,0));
+  const a=new THREE.Mesh(new THREE.PlaneGeometry(5,3),new THREE.MeshBasicMaterial({color:0x3ddc97,transparent:true,opacity:.5}));W(a,V(0,1.5,.14),2.6);
+  P(label("NetSideArea 15 m²",{h:.5,bg:"#93f0b9"}),V(-1.6,3.6,.5),2.8);P(label("NetVolume 3.75 m³",{h:.5,bg:"#c2b3ff"}),V(1.4,4.4,.3),3.6);},
+ tick(t){}},
+{ch:2,title:"Custom set · cost and carbon",code:[["c102",[2,4]],["c100",[0,2]],["c101",[0,2]]],cam:{r:13,yaw:.25,pitch:.3},
+ cap:"You can also create your own property set, like DTU_CostCarbon with UnitCost and GWP_A1A3. Use your own prefix, never Pset_, and make the units explicit.",
+ enter(S){for(let i=0;i<6;i++)P(cyl(.45,.45,.14,0xffc93c),V(-4,.08+i*.16,1.8),.4+i*.18);P(label("UnitCost = 1850",{h:.45,bg:"#ffd23f"}),V(-4,1.7,1.8),1.6);
+  S.cl=new THREE.Group();[[0,0,0,.6],[.6,.1,0,.45],[-.6,.05,0,.5],[.2,.45,0,.42],[-.3,-.3,0,.4]].forEach(a=>{const s=sph(a[3],0x8f95ad);s.position.set(a[0],a[1],a[2]);S.cl.add(s);});P(S.cl,V(3.8,3.2,1.2),1.8);
+  P(label("GWP_A1A3 = 1125 kg CO₂e",{h:.45,bg:"#e3e5ee"}),V(3.8,4.3,1.2),2.2);P(label("DTU_CostCarbon (custom set)",{h:.55,bg:"#c2b3ff"}),V(0,4.6,0),.3);},
+ tick(t,S){S.cl.position.y=3.2+Math.sin(t*1.5)*.15;}},
+{ch:2,title:"Recap",code:[["wall",["all"]],["r80",[4,5]]],cam:{r:14.5,yaw:.15,pitch:.3},
+ cap:"Recap: the wall's line says WHAT it is and points to WHERE it is and to its shape. Psets say what it's LIKE, and the Qto says how BIG it is. Now build the lines yourself in the exam!",
+ enter(S){const items=[[V(-5,3.6,1.5),"#5 OwnerHistory","#8cc3ff",V(-2.3,2.8,.1)],[V(-5,1,2),"#30 Placement","#8cc3ff",V(-2.3,.6,.1)],[V(5,1,2),"#40 Representation","#8cc3ff",V(2.3,.6,.1)],[V(5,3.6,1.5),"#80 → #70 Pset_WallCommon","#ff9f1c",V(2.3,2.8,.1)],[V(0,4.9,1),"#95 Qto_WallBaseQuantities","#93f0b9",V(0,3.05,.1)]];
+  items.forEach((it,i)=>{P(label(it[1],{h:.45,bg:it[2]}),it[0],.3+i*.35);link(it[3],it[0].clone().add(V(0,-.3,0)),{d:.5+i*.35,lift:.6,r:.04,color:i===3?0xff9f1c:(i===4?0x3ddc97:0x3a86ff)});});},
+ tick(t){wally.position.y=Math.abs(Math.sin(t*4))*.35*Math.exp(-t*.25);}}
+];
+
+/* ================= PLAYER ================= */
+let cur=0,st=0,playing=false,started=false,voiceOn=false,spoken=true,doneAt=0,S={},gt=0;
+const camS={r:12.5,yaw:.35,pitch:.25,ty:1.6},camT={...camS};let uYaw=0,uPitch=0,dragging=false,lastDrag=0;
+const subEl=$("#sub"),codeEl=$("#code"),dotsEl=$("#dots"),barEl=$("#bar");
+SC.forEach((s,i)=>{const b=document.createElement("button");b.className="dot"+(s.ch===2?" p2":"");b.title=(i+1)+". "+s.title;b.onclick=()=>{go(i);setPlay(true);};dotsEl.appendChild(b);});
+function dur(s){return Math.max(7,s.cap.split(/\s+/).length*.42+2.5);}
+function go(i){
+  cur=clamp(i,0,SC.length-1);st=0;S={};clearGroup(props);clearGroup(wprops);resetWall();
+  const s=SC[cur];Object.assign(camT,{r:12.5,yaw:.35,pitch:.25,ty:1.6},s.cam||{});
+  $("#chap").textContent=s.ch===1?"Part 1 · The wall line":"Part 2 · Psets and Qto";$("#stitle").textContent=s.title;
+  codeEl.innerHTML=s.code.map(([k,h],j)=>(j===0?"":"<div class='lbl'>related line</div>")+renderLine(k,h)).join("");
+  [...dotsEl.children].forEach((d,j)=>d.classList.toggle("cur",j===cur));barEl.style.width=(cur/(SC.length-1)*100)+"%";
+  s.enter&&s.enter(S);subEl.textContent="";lastChars=-1;
+  spoken=true;if(voiceOn&&started)speak(s.cap);
+}
+function setPlay(p){playing=p;$("#play").textContent=p?"⏸":"▶";if(!p&&"speechSynthesis" in window){try{speechSynthesis.pause();}catch(e){}}else if(p&&"speechSynthesis" in window){try{speechSynthesis.resume();}catch(e){}}}
+function speak(text){
+  if(!("speechSynthesis" in window))return;
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text.replace(/W\/m²K/g,"watts per square metre kelvin").replace(/#/g,"number ").replace(/\$/g,"dollar sign").replace(/m²/g,"square metres").replace(/m³/g,"cubic metres").replace(/°C/g,"degrees"));
+    u.lang="en-GB";const vs=speechSynthesis.getVoices();const v=vs.find(v=>/^en/i.test(v.lang));if(v)u.voice=v;u.rate=1.03;spoken=false;u.onend=()=>{spoken=true;doneAt=st;};u.onerror=()=>{spoken=true;doneAt=st;};speechSynthesis.speak(u);}catch(e){spoken=true;}
+}
+function stopVoice(){if("speechSynthesis" in window){try{speechSynthesis.cancel();}catch(e){}}spoken=true;}
+$("#startbtn").onclick=()=>{$("#startov").hidden=true;started=true;go(0);setPlay(true);};
+$("#play").onclick=()=>{if(!started){$("#startbtn").click();return;}if(!playing&&cur===SC.length-1&&st>dur(SC[cur])){go(0);}setPlay(!playing);};
+$("#prev").onclick=()=>{started=true;$("#startov").hidden=true;go(cur-1);setPlay(true);};
+$("#next").onclick=()=>{started=true;$("#startov").hidden=true;go(cur+1);setPlay(true);};
+
+canvas.addEventListener("pointerdown",e=>{dragging=true;canvas.setPointerCapture(e.pointerId);canvas._x=e.clientX;canvas._y=e.clientY;});
+canvas.addEventListener("pointermove",e=>{if(!dragging)return;uYaw-=(e.clientX-canvas._x)*.008;uPitch+=(e.clientY-canvas._y)*.005;canvas._x=e.clientX;canvas._y=e.clientY;lastDrag=gt;});
+canvas.addEventListener("pointerup",()=>{dragging=false;});
+canvas.addEventListener("dblclick",()=>{uYaw=0;uPitch=0;});
+
+function resize(){const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+new ResizeObserver(resize).observe(stage);resize();
+
+let lastChars=-1,last=performance.now();
+function frame(now){
+  const dt=Math.min(.05,(now-last)/1000);last=now;gt+=dt;
+  if(playing)st+=dt;
+  const s=SC[cur];const D=dur(s);
+  // captions
+  const chars=started?Math.floor(s.cap.length*clamp(st/Math.max(3,D*.62))):0;
+  if(chars!==lastChars){lastChars=chars;subEl.textContent=s.cap.slice(0,chars);}
+    // pops & grows
+  [props,wprops].forEach(g=>g.traverse(o=>{const p=o.userData.pop;if(p){const k=Math.max(1e-4,easeOutBack(clamp((st-p.d)/.45)));o.scale.set(p.s.x*k,p.s.y*k,p.s.z*k);}const gr=o.userData.grow;if(gr){const k=easeOutCubic(clamp((st-gr.d)/.8));gr.geo.setDrawRange(0,Math.floor(gr.geo.index.count*k/3)*3);gr.head.visible=k>=1;}}));
+  s.tick&&s.tick(st,S);
+  clouds.forEach((c,i)=>{c.position.x+=dt*(.25+i*.1);if(c.position.x>14)c.position.x=-14;});
+  // camera
+  for(const k in camT)camS[k]+=(camT[k]-camS[k])*Math.min(1,dt*2.2);
+  if(!dragging&&gt-lastDrag>2){uYaw*=.985;uPitch*=.985;}
+  const yaw=camS.yaw+uYaw,pitch=clamp(camS.pitch+uPitch,.03,1.25);
+  camera.position.set(Math.sin(yaw)*Math.cos(pitch)*camS.r,camS.ty+Math.sin(pitch)*camS.r,Math.cos(yaw)*Math.cos(pitch)*camS.r);camera.lookAt(0,camS.ty,0);
+  renderer.render(scene,camera);
+  // advance
+  if(playing&&started){
+    const useVoice=voiceOn&&("speechSynthesis" in window);
+    const ready=useVoice?((spoken&&st>doneAt+1.1&&st>4)||st>D*2.4):st>D;
+    if(ready){if(cur<SC.length-1)go(cur+1);else setPlay(false);}
+  }
+  requestAnimationFrame(frame);
+}
+const startAll=()=>{go(0);requestAnimationFrame(frame);};
+(document.fonts&&document.fonts.load?Promise.all([document.fonts.load('700 64px Fredoka'),document.fonts.load('500 16px Fredoka')]).catch(()=>{}):Promise.resolve()).then(startAll,startAll);
+
+/* ================= NAV ================= */
+function show(which){$("#video").hidden=which!=="video";$("#exam").hidden=which!=="exam";$("#navVideo").classList.toggle("on",which==="video");$("#navExam").classList.toggle("on",which==="exam");if(which==="exam"){setPlay(false);stopVoice();}else resize();window.scrollTo({top:0,behavior:"smooth"});}
+$("#navVideo").onclick=()=>show("video");$("#navExam").onclick=()=>show("exam");$("#toExam").onclick=()=>show("exam");
+
+/* ================= EXAM ================= */
+const LEVELS=[
+ {key:"wall",title:"Level 1 · The wall",sub:"Build the wall's line (IFCWALL).",extra:["IFCDOOR","#70"]},
+ {key:"p70",title:"Level 2 · The Pset",sub:"The set that groups #60 to #64 (IFCPROPERTYSET).",extra:["(#45)","'IsExternal'"]}
+];
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function buildLevel(L){const Pp=parseLine(LINES[L.key]);const sch=SCHEMA[Pp.type];const slots=[{ans:Pp.id,name:"Instance ID"},{ans:Pp.type,name:"Class"},...Pp.args.map((a,i)=>({ans:a,name:(i+1)+". "+sch[i]}))];
+  const chips=shuffle([...slots.map(s=>s.ans),...L.extra]).map((t,i)=>({id:i,text:t}));return {L,slots,chips,placed:slots.map(()=>null),checked:false,sel:null,score:null};}
+const states=LEVELS.map(buildLevel);
+const QS=[
+ {q:"In <code>#45= IFCWALL(...)</code>, what is <code>#45</code>?",o:["The instance number inside this file","The wall's GlobalId","The storey number","The number of properties"],a:0,e:"It's the line's local identifier. Other lines use it to point at the wall, and it can change with every export."},
+ {q:"Which attribute should stay the same between two exports of the same model, so you can match elements?",o:["#45","GlobalId","OwnerHistory","Description"],a:1,e:"The GlobalId (22 characters) is the global identifier. In practice, check that your authoring tool keeps it stable between exports."},
+ {q:"What does <code>$</code> mean in an IFC line?",o:["Zero","Empty text ''","Optional attribute with no value","A value in dollars"],a:2,e:"$ = no value. (Don't confuse it with *, which marks a derived attribute.)"},
+ {q:"Which entity links the wall to its Pset?",o:["IfcPropertySet","IfcRelDefinesByProperties","IfcRelAssociatesMaterial","IfcOwnerHistory"],a:1,e:"IfcRelDefinesByProperties: RelatedObjects = (#45), RelatingPropertyDefinition = #70."},
+ {q:"Which set contains <code>LoadBearing</code>?",o:["Qto_WallBaseQuantities","Pset_WallCommon","Directly in IFCWALL","IfcOwnerHistory"],a:1,e:"Pset_WallCommon holds IsExternal, LoadBearing, FireRating, ThermalTransmittance and AcousticRating, among others."},
+ {q:"Where would you find <code>NetVolume</code>?",o:["Pset_WallCommon","Qto_WallBaseQuantities (IfcElementQuantity)","ObjectPlacement","Representation"],a:1,e:"Base quantities live in an IfcElementQuantity named Qto_WallBaseQuantities."},
+ {q:"<code>FireRating = IFCLABEL('REI60')</code>. What kind of value is it?",o:["Boolean","Number with a unit","Text (label)","Enumeration"],a:2,e:"IFCLABEL is text. So 'REI60', 'EI 60' or '60 min' can all appear: normalise before filtering."},
+ {q:"What does <code>ThermalTransmittance</code> tell you?",o:["The U-value in W/m²K","Fire resistance","The wall's mass","Sound insulation"],a:0,e:"It's the U-value: how much heat flows per m² per kelvin of difference. Lower = better insulation."},
+ {q:"Your group wants to store cost and CO₂ on every wall. How do you name the set?",o:["Add them inside Pset_WallCommon","Pset_CostCarbon","Your own name without the Pset_ prefix, e.g. DTU_CostCarbon","You can't: IFC doesn't allow new properties"],a:2,e:"The Pset_ prefix is reserved for buildingSMART's sets. Custom sets get a different prefix."},
+ {q:"What is <code>.STANDARD.</code>?",o:["Free text","An enumeration value (PredefinedType)","A reference to another line","A boolean"],a:1,e:"Values between dots are enumerations: only options from a fixed list are valid."},
+ {q:"In <code>IFCRELDEFINESBYPROPERTIES(...,(#45),#70)</code>, why is <code>#45</code> in brackets?",o:["Because it's optional","Because it's a list: the same Pset can apply to many objects","Because it's a comment","Because it marks a wall"],a:1,e:"RelatedObjects is a set: (#45,#46,#47) would apply the same Pset to three walls."},
+ {q:"What does <code>#30</code> point to in the wall's line?",o:["Its 3D shape","Its location and orientation (ObjectPlacement)","Its Pset","Its material"],a:1,e:"IfcWall's 6th attribute is ObjectPlacement: where it is and which way it faces. The shape is the 7th (Representation, #40)."}
+];
+const qAns=QS.map(()=>null);
+const TABS=[...LEVELS.map((l,i)=>({k:i,t:"Level "+(i+1)})),{k:"q",t:"Questions"},{k:"r",t:"Result"}];
+let etab=0;
+function renderTabs(){$("#etabs").innerHTML=TABS.map(t=>{const done=(typeof t.k==="number"&&states[t.k].score&&states[t.k].score.ok===states[t.k].score.total)||(t.k==="q"&&qAns.every(a=>a!==null));return `<button class="btn ${etab===t.k?"on":""} ${done?"done":""}" data-tab="${t.k}">${t.t}${done?" ✓":""}</button>`;}).join("");}
+$("#etabs").addEventListener("click",e=>{const b=e.target.closest("[data-tab]");if(!b)return;const k=b.dataset.tab;etab=(k==="q"||k==="r")?k:+k;renderExam();});
+$("#hints").addEventListener("change",()=>$("#epanel").classList.toggle("nohints",!$("#hints").checked));
+function chipHTML(c){return `<div class="chip c-${tokClass(c.text)}" data-id="${c.id}" title="${esc(c.text)}">${esc(c.text)}</div>`;}
+function renderExam(){renderTabs();if(etab==="q")return renderQ();if(etab==="r")return renderR();renderLevel(states[etab]);}
+function renderLevel(st){
+  const sl=k=>{const cid=st.placed[k];const c=cid!==null?st.chips.find(x=>x.id===cid):null;const cls=st.checked?(c&&c.text===st.slots[k].ans?"ok":"bad"):"";return `<div class="sw"><div class="slot ${cls}" data-k="${k}">${c?chipHTML(c):""}</div><small class="sn">${st.slots[k].name}</small></div>`;};
+  const n=st.slots.length;let b=sl(0)+'<span class="pun">=</span>'+sl(1)+'<span class="pun">(</span>';
+  for(let k=2;k<n;k++){b+=sl(k);if(k<n-1)b+='<span class="pun">,</span>';}b+='<span class="pun">);</span>';
+  const pool=st.chips.filter(c=>!st.placed.includes(c.id)).map(c=>chipHTML(c).replace('class="chip','class="chip'+(st.sel===c.id?" sel":""))).join("");
+  const sc=st.score;
+  $("#epanel").innerHTML=`<h3>${st.L.title}</h3><p class="i">${st.L.sub} Drag each piece into its slot, or tap a piece and then tap the slot. 2 trap pieces are left over.</p>
+   <div class="build">${b}</div><div class="pool">${pool}</div>
+   <div class="actions"><button class="btn y" data-act="check">Check</button><button class="btn" data-act="reset">Reset</button>${typeof etab==="number"&&etab<LEVELS.length-1?'<button class="btn" data-act="nextl">Next level →</button>':'<button class="btn" data-act="toq">Go to questions →</button>'}<span class="res">${sc?`${sc.ok}/${sc.total} correct ${sc.ok===sc.total?"🎉":"— check the red ones"}`:""}</span></div>
+   ${st.checked?`<div class="explain"><div class="code">${renderLine(st.L.key,["all"])}</div></div>`:""}`;
+}
+function place(st,id,k){const prev=st.placed.indexOf(id);if(prev>=0)st.placed[prev]=null;st.placed[k]=id;st.checked=false;st.sel=null;}
+function unplace(st,id){const k=st.placed.indexOf(id);if(k>=0)st.placed[k]=null;st.checked=false;}
+const ep=$("#epanel");let drag=null;
+ep.addEventListener("pointerdown",e=>{if(typeof etab!=="number")return;const ch=e.target.closest(".chip");if(!ch)return;e.preventDefault();drag={id:+ch.dataset.id,x:e.clientX,y:e.clientY,ghost:null,src:ch};});
+window.addEventListener("pointermove",e=>{if(!drag)return;if(!drag.ghost&&Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>6){const g=drag.src.cloneNode(true);g.classList.add("ghost");document.body.appendChild(g);drag.ghost=g;drag.src.classList.add("dragging");}
+  if(drag.ghost){drag.ghost.style.left=e.clientX+"px";drag.ghost.style.top=e.clientY+"px";document.querySelectorAll(".slot.over").forEach(s=>s.classList.remove("over"));const t=document.elementFromPoint(e.clientX,e.clientY);const s=t&&t.closest(".slot");if(s)s.classList.add("over");}});
+window.addEventListener("pointerup",e=>{if(!drag)return;const d=drag;drag=null;const st=states[etab];if(!st)return;
+  if(d.ghost){d.ghost.remove();const t=document.elementFromPoint(e.clientX,e.clientY);const s=t&&t.closest(".slot");if(s)place(st,d.id,+s.dataset.k);else if(t&&t.closest(".pool"))unplace(st,d.id);else d.src.classList.remove("dragging");renderLevel(st);}
+  else{if(st.placed.includes(d.id))unplace(st,d.id);else st.sel=st.sel===d.id?null:d.id;renderLevel(st);}});
+ep.addEventListener("click",e=>{
+  if(typeof etab==="number"){const st=states[etab];const a=e.target.closest("[data-act]");
+    if(a){const act=a.dataset.act;
+      if(act==="check"){st.checked=true;let ok=0;st.slots.forEach((s,k)=>{const c=st.chips.find(x=>x.id===st.placed[k]);if(c&&c.text===s.ans)ok++;});st.score={ok,total:st.slots.length};renderExam();}
+      else if(act==="reset"){states[etab]=buildLevel(st.L);renderExam();}
+      else if(act==="nextl"){etab++;renderExam();}
+      else if(act==="toq"){etab="q";renderExam();}
+      return;}
+    if(e.target.closest(".chip"))return;const s=e.target.closest(".slot");if(s&&st.sel!==null){place(st,st.sel,+s.dataset.k);renderLevel(st);}
+  } else if(etab==="q"){const b=e.target.closest(".opt");if(b&&!b.disabled){qAns[+b.dataset.q]=+b.dataset.o;renderExam();}
+    const r=e.target.closest("[data-act='tor']");if(r){etab="r";renderExam();}}
+  else if(etab==="r"){const a=e.target.closest("[data-act]");if(a&&a.dataset.act==="again"){states.forEach((s,i)=>states[i]=buildLevel(LEVELS[i]));qAns.fill(null);etab=0;renderExam();}if(a&&a.dataset.act==="video")show("video");}
+});
+function renderQ(){const ok=qAns.filter((a,i)=>a===QS[i].a).length,ans=qAns.filter(a=>a!==null).length;
+  $("#epanel").innerHTML=`<h3>Quick questions</h3><p class="i">${ans}/${QS.length} answered · ${ok} correct</p>`+QS.map((q,i)=>{const a=qAns[i];return `<div class="qcard ${a!==null?"answered":""}"><h4>${i+1}. ${q.q}</h4><div class="opts">${q.o.map((o,j)=>`<button class="opt ${a!==null&&j===q.a?"right":""} ${a===j&&j!==q.a?"wrong":""}" data-q="${i}" data-o="${j}" ${a!==null?"disabled":""}>${o}</button>`).join("")}</div><div class="fb">${a===q.a?"✅ Correct!":"❌ Not quite."} ${q.e}</div></div>`;}).join("")+`<div class="actions"><button class="btn y" data-act="tor">See result →</button></div>`;}
+function renderR(){let lo=0,lt=0;const rows=states.map((s,i)=>{const sc=s.score||{ok:0,total:s.slots.length};lo+=sc.ok;lt+=sc.total;return `<div>${LEVELS[i].title}<b>${s.score?sc.ok+"/"+sc.total:"—"}</b></div>`;}).join("");
+  const qo=qAns.filter((a,i)=>a===QS[i].a).length;const tot=Math.round((lo+qo)/(lt+QS.length)*100);
+  const msg=tot>=90?"buildingSMART level! 🏆":tot>=70?"Very good. Review what came out red.":tot>=40?"Getting there. Rewatch Part 2 of the video.":"Watch the video again and have another go 💪";
+  $("#epanel").innerHTML=`<h3>Result</h3><div class="big">${tot}%</div><p>${msg}</p><div class="score">${rows}<div>Questions<b>${qo}/${QS.length}</b></div></div><p class="i">Levels you haven't checked count as 0.</p><div class="actions"><button class="btn y" data-act="again">Retake the exam</button><button class="btn" data-act="video">Back to the video</button></div>`;}
+renderExam();
+})();
+</script>
+</body>
+</html>
