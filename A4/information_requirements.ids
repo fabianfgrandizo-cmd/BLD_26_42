@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ids:ids xmlns:ids="http://standards.buildingsmart.org/IDS"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://standards.buildingsmart.org/IDS http://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+  <ids:info>
+    <ids:title>A4 Group 42 (BLD) - can this model be run by the renovation comparison tool?</ids:title>
+    <ids:version>1.0</ids:version>
+    <ids:description>Structural elements need a material (CO2 and cost category, matching), walls need IsExternal (Team 40 compares exterior walls), quantities are taken from Qto when present.</ids:description>
+    <ids:date>2026-11-25</ids:date>
+    <ids:purpose>Check the existing model and every proposed model before running runall.py (quantities, CO2 and cost of the changes).</ids:purpose>
+  </ids:info>
+  <ids:specifications>
+    <ids:specification name="Structural elements have a material" ifcVersion="IFC2X3 IFC4 IFC4X3_ADD2" identifier="G42-MATERIAL"
+        description="Used by Team 42 (CO2 category), Team 41 (price category) and Team 40 (matching and grouping)."
+        instructions="Assign a real material (e.g. Concrete C30/37, Steel S355, Glulam GL30). Layered walls/slabs: use a material layer set with thicknesses.">
+      <ids:applicability minOccurs="1" maxOccurs="unbounded">
+        <ids:entity>
+          <ids:name>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="IFCBEAM"/>
+              <xs:enumeration value="IFCCOLUMN"/>
+              <xs:enumeration value="IFCSLAB"/>
+              <xs:enumeration value="IFCWALL"/>
+              <xs:enumeration value="IFCWALLSTANDARDCASE"/>
+            </xs:restriction>
+          </ids:name>
+        </ids:entity>
+      </ids:applicability>
+      <ids:requirements>
+        <ids:material cardinality="required"/>
+      </ids:requirements>
+    </ids:specification>
+    <ids:specification name="Walls say if they are external" ifcVersion="IFC2X3 IFC4 IFC4X3_ADD2" identifier="G42-ISEXTERNAL"
+        description="Team 40 compares exterior walls only; without IsExternal it guesses from the wall name."
+        instructions="Fill Pset_WallCommon.IsExternal (Revit: Function = Exterior / Interior).">
+      <ids:applicability minOccurs="0" maxOccurs="unbounded">
+        <ids:entity>
+          <ids:name>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="IFCWALL"/>
+              <xs:enumeration value="IFCWALLSTANDARDCASE"/>
+            </xs:restriction>
+          </ids:name>
+        </ids:entity>
+      </ids:applicability>
+      <ids:requirements>
+        <ids:property dataType="IFCBOOLEAN" cardinality="required">
+          <ids:propertySet><ids:simpleValue>Pset_WallCommon</ids:simpleValue></ids:propertySet>
+          <ids:baseName><ids:simpleValue>IsExternal</ids:simpleValue></ids:baseName>
+        </ids:property>
+      </ids:requirements>
+    </ids:specification>
+    <ids:specification name="Net volume, when exported, is positive" ifcVersion="IFC2X3 IFC4 IFC4X3_ADD2" identifier="G42-NETVOLUME"
+        description="Volumes come from Qto NetVolume when present, otherwise from the geometry (slower, flagged as estimate)."
+        instructions="Export base quantities (Revit IFC export: Export base quantities).">
+      <ids:applicability minOccurs="0" maxOccurs="unbounded">
+        <ids:entity>
+          <ids:name>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="IFCBEAM"/>
+              <xs:enumeration value="IFCCOLUMN"/>
+              <xs:enumeration value="IFCSLAB"/>
+              <xs:enumeration value="IFCWALL"/>
+              <xs:enumeration value="IFCWALLSTANDARDCASE"/>
+            </xs:restriction>
+          </ids:name>
+        </ids:entity>
+      </ids:applicability>
+      <ids:requirements>
+        <ids:property dataType="IFCVOLUMEMEASURE" cardinality="optional">
+          <ids:propertySet>
+            <xs:restriction base="xs:string"><xs:pattern value="Qto_.*BaseQuantities"/></xs:restriction>
+          </ids:propertySet>
+          <ids:baseName><ids:simpleValue>NetVolume</ids:simpleValue></ids:baseName>
+          <ids:value><xs:restriction base="xs:double"><xs:minExclusive value="0"/></xs:restriction></ids:value>
+        </ids:property>
+      </ids:requirements>
+    </ids:specification>
+  </ids:specifications>
+</ids:ids>

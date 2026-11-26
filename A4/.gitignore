@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+data/*.ifc
+*.ifc
+!tests/models/*.ifc
+results/*.xlsx

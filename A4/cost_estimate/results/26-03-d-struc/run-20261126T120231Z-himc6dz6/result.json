@@ -1,0 +1,992 @@
+{
+  "total_new_DKK": 16098438.0,
+  "total_removed_DKK": 42443.0,
+  "groups": [
+    {
+      "GlobalId": "G001",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 24.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G002",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 1.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G003",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 5665.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G004",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 1524.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G005",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 627438.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G006",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 10148.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G007",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 1675.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G008",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 1654.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G009",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 6114.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G010",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 6290.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G011",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 6558.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G012",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 33933.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G013",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 51543.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G014",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 79751.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G015",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 23634.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G016",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 13045.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G017",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 3413.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G018",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 19027.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G019",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 21740.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G020",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 76075.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G021",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 3282.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G022",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 9675.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G023",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 9809.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G024",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 49239.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G025",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 9485.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G026",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 9810.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G027",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 35133.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G028",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 4571.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G029",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 1554.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G030",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 9358.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G031",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 94302.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G032",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 94531.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G033",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 95979.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G034",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 96126.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G035",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 96500.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G036",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 98584.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G037",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 99334.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G038",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 99659.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G039",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 102020.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G040",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 102167.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G041",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 109317.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G042",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 111970.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G043",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 113208.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G044",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 118174.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G045",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 145844.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G046",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 147356.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G047",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 147446.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G048",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 147991.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G049",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 149668.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G050",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 149684.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G051",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 149798.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G052",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 151622.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G053",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 523814.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G054",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 36851.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G055",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 43540.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G056",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 22083.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G057",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 312991.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G058",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 22455.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G059",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 22714.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G060",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 22812.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G061",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 23153.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G062",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 22800.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G063",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 11450.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G064",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 11479.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G065",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 11575.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G066",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 11582.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G067",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 11598.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G068",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 11625.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G069",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 11664.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G070",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 82228.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G071",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 191334.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G072",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 32028.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G073",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 34773.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G074",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 9819.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G075",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 10342.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G076",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 10344.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G077",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 10444.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G078",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 10445.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G079",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 10745.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G080",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 29784.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G081",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 62140.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G082",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 31348.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G083",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 31631.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G084",
+      "CostCategory": "Concrete C35/45",
+      "Cost_DKK": 31641.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G085",
+      "CostCategory": "Structural steel",
+      "Cost_DKK": null,
+      "CostProblem": "no price for 'Structural steel'"
+    },
+    {
+      "GlobalId": "G086",
+      "CostCategory": "Structural steel",
+      "Cost_DKK": null,
+      "CostProblem": "no price for 'Structural steel'"
+    },
+    {
+      "GlobalId": "G087",
+      "CostCategory": "Structural steel",
+      "Cost_DKK": null,
+      "CostProblem": "no price for 'Structural steel'"
+    },
+    {
+      "GlobalId": "G088",
+      "CostCategory": "Structural steel",
+      "Cost_DKK": null,
+      "CostProblem": "no price for 'Structural steel'"
+    },
+    {
+      "GlobalId": "G089",
+      "CostCategory": "Structural steel",
+      "Cost_DKK": null,
+      "CostProblem": "no price for 'Structural steel'"
+    },
+    {
+      "GlobalId": "G090",
+      "CostCategory": "Structural steel",
+      "Cost_DKK": null,
+      "CostProblem": "no price for 'Structural steel'"
+    },
+    {
+      "GlobalId": "G091",
+      "CostCategory": "Structural steel",
+      "Cost_DKK": null,
+      "CostProblem": "no price for 'Structural steel'"
+    },
+    {
+      "GlobalId": "G092",
+      "CostCategory": "Structural steel",
+      "Cost_DKK": null,
+      "CostProblem": "no price for 'Structural steel'"
+    },
+    {
+      "GlobalId": "G093",
+      "CostCategory": "Structural steel",
+      "Cost_DKK": null,
+      "CostProblem": "no price for 'Structural steel'"
+    },
+    {
+      "GlobalId": "G094",
+      "CostCategory": "Structural steel",
+      "Cost_DKK": null,
+      "CostProblem": "no price for 'Structural steel'"
+    },
+    {
+      "GlobalId": "G095",
+      "CostCategory": null,
+      "Cost_DKK": null,
+      "CostProblem": "no rule matches"
+    },
+    {
+      "GlobalId": "G096",
+      "CostCategory": null,
+      "Cost_DKK": null,
+      "CostProblem": "no rule matches"
+    },
+    {
+      "GlobalId": "G097",
+      "CostCategory": null,
+      "Cost_DKK": null,
+      "CostProblem": "no rule matches"
+    },
+    {
+      "GlobalId": "G098",
+      "CostCategory": null,
+      "Cost_DKK": null,
+      "CostProblem": "no rule matches"
+    },
+    {
+      "GlobalId": "G099",
+      "CostCategory": null,
+      "Cost_DKK": null,
+      "CostProblem": "no rule matches"
+    },
+    {
+      "GlobalId": "G100",
+      "CostCategory": null,
+      "Cost_DKK": null,
+      "CostProblem": "no rule matches"
+    },
+    {
+      "GlobalId": "G101",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 4390.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G102",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 7395.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G103",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 21466.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G104",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 28086.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G105",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 38639.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G106",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 2655.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G107",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 2662.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G108",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 2944.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G109",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 1557.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G110",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 17945.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G111",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 16314.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G112",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 9343.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G113",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 27438.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G114",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 52707.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G115",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 5546.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G116",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 3698.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G117",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 9200.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G118",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 7360.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G119",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 522139.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G120",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 869082.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G121",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 3247289.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G122",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 116850.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G123",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 222299.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G124",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 1185018.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G125",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 313405.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G126",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 3887331.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G127",
+      "CostCategory": null,
+      "Cost_DKK": null,
+      "CostProblem": "multi-layer material - split per layer first"
+    },
+    {
+      "GlobalId": "G128",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 4616.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G129",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 1355.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G130",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 344.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G131",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 2345.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G132",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 2445.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G133",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 2131.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G134",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 4274.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G135",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 5932.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G136",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 3867.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G137",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 3550.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G138",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 333.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G139",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 386.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G140",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 581.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G141",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 3634.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G142",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 213.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G143",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 935.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G144",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 1031.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G145",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 408.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G146",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 138.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G147",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 144.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G148",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 2278.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G149",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 666.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G150",
+      "CostCategory": "Concrete (class not specified)",
+      "Cost_DKK": 837.0,
+      "CostProblem": null
+    },
+    {
+      "GlobalId": "G151",
+      "CostCategory": null,
+      "Cost_DKK": null,
+      "CostProblem": "multi-layer material - split per layer first"
+    },
+    {
+      "GlobalId": "G152",
+      "CostCategory": null,
+      "Cost_DKK": null,
+      "CostProblem": "multi-layer material - split per layer first"
+    },
+    {
+      "GlobalId": "G153",
+      "CostCategory": null,
+      "Cost_DKK": null,
+      "CostProblem": "multi-layer material - split per layer first"
+    },
+    {
+      "GlobalId": "G154",
+      "CostCategory": null,
+      "Cost_DKK": null,
+      "CostProblem": "multi-layer material - split per layer first"
+    },
+    {
+      "GlobalId": "G155",
+      "CostCategory": null,
+      "Cost_DKK": null,
+      "CostProblem": "multi-layer material - split per layer first"
+    },
+    {
+      "GlobalId": "G156",
+      "CostCategory": null,
+      "Cost_DKK": null,
+      "CostProblem": "multi-layer material - split per layer first"
+    },
+    {
+      "GlobalId": "G157",
+      "CostCategory": null,
+      "Cost_DKK": null,
+      "CostProblem": "multi-layer material - split per layer first"
+    },
+    {
+      "GlobalId": "G158",
+      "CostCategory": null,
+      "Cost_DKK": null,
+      "CostProblem": "multi-layer material - split per layer first"
+    }
+  ],
+  "summary": [
+    {
+      "Item": "New elements - construction DKK (calculated only)",
+      "Value": 16098438.0
+    },
+    {
+      "Item": "Removed elements - demolition DKK (calculated only)",
+      "Value": 42443.0
+    },
+    {
+      "Item": "TOTAL DKK (calculated only)",
+      "Value": 16140881.0
+    },
+    {
+      "Item": "Groups received",
+      "Value": 158
+    },
+    {
+      "Item": "Groups calculated",
+      "Value": 133
+    },
+    {
+      "Item": "Groups with problems",
+      "Value": 25
+    },
+    {
+      "Item": "Groups with price warnings",
+      "Value": 133
+    },
+    {
+      "Item": "Valuation coverage",
+      "Value": "PARTIAL - see COST_Problems"
+    },
+    {
+      "Item": "Scope",
+      "Value": "Preliminary costs for unmatched quantities; not verified site activities or a full project budget."
+    }
+  ]
+}
